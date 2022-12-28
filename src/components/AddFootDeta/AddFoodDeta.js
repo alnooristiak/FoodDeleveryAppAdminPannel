@@ -1,4 +1,7 @@
+import { addDoc, collection } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import React, { useState } from 'react';
+import { db, storage } from '../Firebase/FirebaseConfig';
 import './AddFoodDeta.css'
 const AddFoodDeta = () => {
 
@@ -14,11 +17,29 @@ const AddFoodDeta = () => {
     const [rstDetail, setRstDetail] = useState('');
     const [rstPhone, setRstPhone] = useState('');
 
-    // const [rstImage, setRstImage] = useState('');
-    // const [rstCategory, setRstCategory] = useState('');
-
     // test clg 
-    console.log(foodName);
+    // console.log(foodName);
+    const handleSubmit = (e) => {
+        // e.preventdefault() is not working
+        const foodDatas = {
+            foodName,
+            foodDescrieption,
+            foodPrice,
+            foodCategory,
+            // foodImage,
+            rstName,
+            rstDetail,
+            rstPhone,
+        }
+        // console.log(foodDatas)
+        try{
+            const docRef = addDoc(collection(db, 'FoodData'), foodDatas);
+            alert("document weitten with ID:", docRef.id);
+        }catch (error){
+            alert("you find an err", error);
+        }
+    }
+
     return (
         <div className='container d-flex justify-content-center'>
             <div className='row'>
@@ -46,21 +67,30 @@ const AddFoodDeta = () => {
                     placeholder='Food Description' />
                     <br />
 
-                    <label className='d-block py-2 text-primary fw-bolder'>Food Price</label>
+                    <label 
+                    className='d-block py-2 text-primary fw-bolder'>
+                        Food Price
+                    </label>
                     <input 
                     onChange={(e)=> setFoodPrice(e.target.value)}
                     type='number'  
                     placeholder='Food Price' />
                     <br />
 
-                    <label className='d-block py-2 text-primary fw-bolder'>Food Category</label>
+                    <label 
+                    className='d-block py-2 text-primary fw-bolder'>
+                        Food Category
+                    </label>
                     <input 
                     onChange={(e)=> setFoodCategory(e.target.value)}
                     type='text' 
                     placeholder='Food Category' />
                     <br />
                     
-                    <label className='d-block py-2 text-primary fw-bolder'>Food Image</label>
+                    <label 
+                    className='d-block py-2 text-primary fw-bolder'>
+                        Food Image
+                    </label>
                     <input 
                     onChange={(e)=> setFoodImage(e.target.files[0])}
                     type='file' 
@@ -71,21 +101,44 @@ const AddFoodDeta = () => {
                 {/* Resturents Details */}
                 <h4 className='mt-3'>Resturents Details</h4>
                 <div>
-                    <label className='d-block py-2 text-danger fw-bolder '>Resturent Name</label>
-                    <input type='text' placeholder='Resturent Name' />
+                    <label 
+                    className='d-block py-2 text-danger fw-bolder '>
+                        Resturent Name
+                    </label>
+                    <input 
+                    onChange={(e)=> setRstName(e.target.value)}
+                    type='text' 
+                    placeholder='Resturent Name' />
                     <br />
 
-                    <label className='d-block py-2 text-danger fw-bolder '>Resturent Details</label>
-                    <input type='text' placeholder='Resturent Details' />
+                    <label 
+                    className='d-block py-2 text-danger fw-bolder '>
+                        Resturent Details
+                    </label>
+                    <input 
+                    onChange={(e)=> setRstDetail(e.target.value)}
+                    type='text' 
+                    placeholder='Resturent Details' />
                     <br />
 
-                    <label className='d-block py-2 text-danger fw-bolder '>Resturent Phone Number</label>
-                    <input type='text' placeholder='Resturent Phone Number' />
+                    <label 
+                    className='d-block py-2 text-danger fw-bolder '>
+                        Resturent Phone Number
+                    </label>
+                    <input 
+                    onChange={(e)=> setRstPhone(e.target.value)}
+                    type='text' 
+                    placeholder='Resturent Phone Number' />
                     <br />
                 </div>
 
                 <div className='my-3'>
-                    <button type="button" className='fw-bolder p-3 btn btn-success'>Add Food Data</button>
+                    <button 
+                    onClick={handleSubmit}
+                    type="button" 
+                    className='fw-bolder p-3 btn btn-success'>
+                        Add Food Data
+                    </button>
                 </div>
             </div>
         </div>
