@@ -10,7 +10,7 @@ const AddFoodDeta = () => {
     const [foodDescrieption, setFoodDescrieption] = useState('');
     const [foodPrice, setFoodPrice] = useState('');
     const [foodCategory, setFoodCategory] = useState('');
-    const [foodImage, setFoodImage] = useState('');
+    const [foodImage, setFoodImage] = useState(null);
 
     // Resturent Detail Hooks
     const [rstName, setRstName] = useState('');
@@ -21,15 +21,32 @@ const AddFoodDeta = () => {
     // console.log(foodName);
     const handleSubmit = (e) => {
         // e.preventdefault() is not working
+        if(foodImage == null){
+            alert("please Select an Image");
+            return
+        }else{
+            const imageRef = ref(storage, `foodImage/${foodImage.name}`)
+            uploadBytes(imageRef,foodImage)
+            .then(()=>{
+                alert("Image added suxssesfully")
+                getDownloadURL(imageRef)
+                    .then((url)=> {
+                        console.log(url)
+                    })
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+        }
         const foodDatas = {
-            foodName,
-            foodDescrieption,
-            foodPrice,
-            foodCategory,
+            // foodName,
+            // foodDescrieption,
+            // foodPrice,
+            // foodCategory,
             // foodImage,
-            rstName,
-            rstDetail,
-            rstPhone,
+            // rstName,
+            // rstDetail,
+            // rstPhone,
         }
         // console.log(foodDatas)
         try{
