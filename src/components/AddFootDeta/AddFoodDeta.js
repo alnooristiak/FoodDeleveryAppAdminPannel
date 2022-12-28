@@ -6,8 +6,8 @@ const AddFoodDeta = () => {
     const [foodName, setFoodName] = useState('');
     const [foodDescrieption, setFoodDescrieption] = useState('');
     const [foodPrice, setFoodPrice] = useState('');
-    const [foodImage, setFoodImage] = useState('');
     const [foodCategory, setFoodCategory] = useState('');
+    const [foodImage, setFoodImage] = useState('');
 
     // Resturent Detail Hooks
     const [rstName, setRstName] = useState('');
@@ -17,6 +17,8 @@ const AddFoodDeta = () => {
     // const [rstImage, setRstImage] = useState('');
     // const [rstCategory, setRstCategory] = useState('');
 
+    // test clg 
+    console.log(foodName);
     return (
         <div className='container d-flex justify-content-center'>
             <div className='row'>
@@ -24,24 +26,45 @@ const AddFoodDeta = () => {
                 {/* Food Details */}
                 <h2 className='mt-4'>Food Details</h2>
                 <div>
-                    <label className='d-block py-2 text-primary fw-bolder'>Food Name</label>
-                    <input placeholder='Food Name' />
+                    <label 
+                    className='d-block py-2 text-primary fw-bolder'>
+                        Food Name
+                    </label>
+                    <input
+                    onChange={(e)=> setFoodName(e.target.value)}
+                    type='text'
+                    placeholder='Food Name' />
                     <br />
 
-                    <label className='d-block py-2 text-primary fw-bolder'>Food Description</label>
-                    <input placeholder='Food Description' />
+                    <label 
+                    className='d-block py-2 text-primary fw-bolder'>
+                        Food Description
+                    </label>
+                    <input 
+                    onChange={(e)=> setFoodDescrieption(e.target.value)}
+                    type='text' 
+                    placeholder='Food Description' />
                     <br />
 
                     <label className='d-block py-2 text-primary fw-bolder'>Food Price</label>
-                    <input type='number' placeholder='Food Price' />
+                    <input 
+                    onChange={(e)=> setFoodPrice(e.target.value)}
+                    type='number'  
+                    placeholder='Food Price' />
                     <br />
 
                     <label className='d-block py-2 text-primary fw-bolder'>Food Category</label>
-                    <input type='text' placeholder='Food Category' />
+                    <input 
+                    onChange={(e)=> setFoodCategory(e.target.value)}
+                    type='text' 
+                    placeholder='Food Category' />
                     <br />
                     
                     <label className='d-block py-2 text-primary fw-bolder'>Food Image</label>
-                    <input type='file' placeholder='Food Image' />
+                    <input 
+                    onChange={(e)=> setFoodImage(e.target.files[0])}
+                    type='file' 
+                    placeholder='Food Image' />
                     <br />
                 </div>
 
